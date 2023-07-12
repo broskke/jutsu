@@ -39,6 +39,8 @@ services:
 
   redis:
     image: redis
+    expose:
+      - 6379
 
   celery:
     build: .
