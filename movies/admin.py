@@ -21,7 +21,3 @@ class PostAdmin(admin.ModelAdmin):
 admin.site.register(Genre)
 admin.site.register(Category)
 admin.site.register(Theme)
-
-admin.site.register(Movies)
-
-# admin.site.register(Movies)

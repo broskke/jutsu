@@ -3,32 +3,25 @@ from django.db import models
 
 # Create your models here.
 class Genre(models.Model):
-    name = models.CharField("Жанры", max_length=100)
+    name = models.CharField(verbose_name="Жанры", max_length=100)
+
+    class Meta:
+        verbose_name = "Жанр"
+        verbose_name_plural = "Жанры"
+
+    def __str__(self):
+        return self.name
 
 
 class Theme(models.Model):
-    name = models.CharField("Название", max_length=50)
-
-
-def __str__(self) -> str:
-    return self.name
-
-
-class Meta:
-    verbose_name = "Жанр"
-    verbose_name_plural = "Жанры"
-
-
-class Theme(models.Model):
-    name = models.CharField("Название", max_length=50)
+    name = models.CharField(verbose_name="Темы", max_length=50)
 
     def __str__(self) -> str:
         return self.name
 
-
 class Category(models.Model):
-    name = models.CharField("Категории", max_length=159)
-    description = models.TextField("Описание")
+    name = models.CharField(verbose_name="Категории", max_length=159)
+    description = models.TextField(verbose_name="Описание")
     url = models.SlugField(max_length=160, unique=True)
 
     def __str__(self) -> str:
@@ -40,36 +33,22 @@ class Category(models.Model):
 
 
 class Movies(models.Model):
-    title = models.CharField("Название", max_length=100)
-    description = models.TextField("Описание")
-    poster = models.ImageField("Постер", upload_to="movies/")
-    year = models.PositiveSmallIntegerField("Год выпуска", default=1980)
-    genres = models.ManyToManyField(Genre, verbose_name="жанры")
-    themes = models.ManyToManyField(Theme, verbose_name='темы')
-    original_title = models.CharField("Название на японском", max_length=100)
-    age_permissions = models.CharField("Возрастной рейтинг", max_length=50)
-
-
-class Movies(models.Model):
-    title = models.CharField("Название", max_length=100)
-    description = models.TextField("Описание")
-    poster = models.ImageField("Постер", upload_to="posters/")
-    year = models.PositiveSmallIntegerField("Год выпуска", default=1980)
+    title = models.CharField(verbose_name="Название", max_length=100)
+    description = models.TextField(verbose_name="Описание")
+    poster = models.ImageField(verbose_name="Постер", upload_to="posters/")
+    year = models.PositiveSmallIntegerField(verbose_name="Год выпуска", default=1980)
     genres = models.ManyToManyField(Genre, verbose_name='жанры')
     themes = models.ManyToManyField(Theme, verbose_name='темы')
     category = models.ForeignKey(Category, verbose_name="Категории", on_delete=models.SET_NULL, null=True)
-    original_title = models.CharField("Название на японском", max_length=100)
-    age_permissions = models.PositiveIntegerField("Возрастной рейтинг", default=12)
-    created_at = models.DateTimeField(auto_now=True)
+    original_title = models.CharField(verbose_name="Название на японском", max_length=100)
+    age_permissions = models.PositiveIntegerField(verbose_name="Возрастной рейтинг", default=12)
 
+    def __str__(self) -> str:
+        return self.title
 
-def __str__(self) -> str:
-    return self.title
-
-
-class Meta:
-    verbose_name = "Аниме"
-    verbose_name_plural = "Анимы"
+    class Meta:
+        verbose_name = "Аниме"
+        verbose_name_plural = "Анимы"
 
 
 class PostImage(models.Model):

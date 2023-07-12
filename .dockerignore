@@ -4,8 +4,8 @@
 .gitignore
 .gitattributes
 
-media
-static
+media/
+static/
 
 # EditorConfig
 .editorconfig

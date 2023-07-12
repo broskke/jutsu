@@ -2,7 +2,9 @@ version: '3.3'
 
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     command: >
       sh -c "gunicorn main.wsgi:application --bind 0.0.0.0:8000"
     volumes:
@@ -17,7 +19,7 @@ services:
       - migration
 
   db:
-    image: postgres
+    image: postgres:14.1-alpine
     restart: always
     environment:
       POSTGRES_DB: jutsu_db
@@ -36,9 +38,10 @@ services:
     depends_on:
       - db
 
-
   redis:
-    image: redis
+    image: redis:alpine
+    ports:
+      - 6378
 
   celery:
     build: .
@@ -51,7 +54,7 @@ services:
 
   nginx:
     build:
-      context: .
+      context: nginx/
       dockerfile: nginx/Dockerfile
     ports:
       - "80:80"

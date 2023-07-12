@@ -3,10 +3,12 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import ListModelMixin
-from . import serializers
+from rest_framework import status
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.response import Response
-from .send_mail import send_confirmation_email
+
+from .tasks import send_confirmation_email
+from . import serializers
 
 
 User = get_user_model()
@@ -15,32 +17,37 @@ User = get_user_model()
 class UserViewSet(ListModelMixin, GenericViewSet):
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
+
+    def get_serializer_class(self):
+        if self.action == 'register':
+            return serializers.RegisterSerializer
+        return serializers.UserSerializer
 
     @action(['POST'], detail=False)
-    def register(self, request, *ars, **kwargs):
-        serializer = serializers.RegisterSerializer(data=request.data)
+    def register(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         if user:
             try:
-                send_confirmation_email(user.email, user.activation_code)
+                send_confirmation_email.delay(user.email, user.activation_code)
             except Exception as e:
                 return Response({'msg': 'Registered, but troubles with email',
-                                 'data': serializer.data}, status=201)
-        return Response(serializer.data, status=201)
+                                 'data': serializer.data}, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @action(['GET'], detail=False, url_path='activate/(?P<uuid>[0-9A-Fa-f-]+)')
     def activate(self, request, uuid):
         try:
             user = User.objects.get(activation_code=uuid)
         except User.DoesNotExists:
-            return Response({'msg': 'Invalid link or link does not expired!'}, status=400)
+            return Response({'msg': 'Invalid link or link does not expired!'}, status=status.HTTP_400_BAD_REQUEST)
 
         user.is_active = True
         user.activation_code = ''
         user.save()
-        return Response({'msg': 'Successfully activated!'}, status=200)
+        return Response({'msg': 'Successfully activated!'}, status=status.HTTP_200_OK)
 
 
 class LoginView(TokenObtainPairView):
@@ -49,5 +56,3 @@ class LoginView(TokenObtainPairView):
 
 class RefreshView(TokenRefreshView):
     permission_classes = (AllowAny, )
-
-
