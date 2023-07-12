@@ -182,9 +182,8 @@ CACHES = {
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_CACHE_ALIAS = 'default'
 
-# REDIS_HOST = 'redis'
-REDIS_HOST = '127.0.0.1'
-REDIS_PORT = '6379'
+REDIS_HOST = config('REDIS_HOST')
+REDIS_PORT = config('REDIS_PORT')
 
 CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}/0'
 CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
