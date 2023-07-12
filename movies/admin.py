@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Genre, Category, Theme, Movies
 
-# Register your models here.
+admin.site.register(Genre)
+admin.site.register(Category)
+admin.site.register(Theme)
+admin.site.register(Movies)
