@@ -13,3 +13,5 @@ def send_confirmation_email(user, code):
         from_email='jutsumakers@gmail.com',
         recipient_list=[user],
     )
+
+

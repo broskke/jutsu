@@ -1,19 +1,17 @@
-# Используем базовый образ Python
-FROM python:3.9-slim-buster
+FROM python:3
 
-# Устанавливаем зависимости проекта
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
-RUN pip install --upgrade pip
-COPY requirements.txt /app/requirements.txt
-RUN pip install -r /app/requirements.txt
+ENV PYTHONIOENCODING UTF-8
+ENV TZ=Asia/Bishkek
 
-# Копируем проект в контейнер
-COPY . /app
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Устанавливаем переменную окружения для Django
-ENV DJANGO_SETTINGS_MODULE=jutsu_sohr.settings.production
+WORKDIR /usr/src/app
 
-# Запускаем приложение
-CMD ["python", "/app/manage.py", "runserver", "0.0.0.0:8000"]
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+RUN mkdir static && mkdir media
+
+COPY . .
+
+EXPOSE 8000

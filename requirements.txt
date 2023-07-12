@@ -12,3 +12,5 @@ uuid
 djangorestframework-simplejwt
 django-star-ratings
 celery
+redis
+django-redis
