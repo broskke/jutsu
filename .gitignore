@@ -1,5 +1,72 @@
-<<<<<<< HEAD
+
 venv
+
+
+
+.env
+.idea
+static
+**/migrations/*
+!**/migrations/__init__.py
+__pycache__/
+.vscode
+
+
+
+# Django #
+*.log
+*.pot
+*.pyc
+pycache
+db.sqlite3
+media
+
+# Backup files #
+*.bak
+
+# If you are using PyCharm #
+# User-specific stuff
+.idea//workspace.xml
+.idea//tasks.xml
+.idea//usage.statistics.xml
+.idea//dictionaries
+.idea//shelf
+
+# AWS User-specific
+.idea//aws.xml
+
+# Generated files
+.idea//contentModel.xml
+
+# Sensitive or high-churn files
+.idea//dataSources/
+.idea//dataSources.ids
+.idea//dataSources.local.xml
+.idea//sqlDataSources.xml
+.idea//dynamic.xml
+.idea//uiDesigner.xml
+.idea//dbnavigator.xml
+
+# Gradle
+.idea//gradle.xml
+.idea//libraries
+
+# File-based project format
+*.iws
+
+# IntelliJ
+out/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Python #
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python build/
+>>>>>>> 099c2df7be2a8608d515668c0f6ff3f7ba04dc9a
 =======
 venv/
 .env
@@ -31,6 +98,7 @@ media
 # Distribution / packaging
 .Python
 build/
+>>>>>>> 2e3dd555577cb1578d8674b826d7b18050ae3557
 develop-eggs/
 dist/
 downloads/
@@ -42,6 +110,11 @@ parts/
 sdist/
 var/
 wheels/
+<<<<<<< HEAD
+*.egg-info/
+.installed.cfg
+*.egg
+=======
 share/python-wheels/
 *.egg-info/
 .installed.cfg
@@ -51,6 +124,7 @@ MANIFEST
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
+>>>>>>> 2e3dd555577cb1578d8674b826d7b18050ae3557
 *.manifest
 *.spec
 
@@ -61,6 +135,15 @@ pip-delete-this-directory.txt
 # Unit test / coverage reports
 htmlcov/
 .tox/
+
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
 .nox/
 .coverage
 .coverage.*
@@ -94,6 +177,12 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# celery
+celerybeat-schedule.*
 
 # IPython
 profile_default/
@@ -133,6 +222,7 @@ __pypackages__/
 celerybeat-schedule
 celerybeat.pid
 
+
 # SageMath parsed files
 *.sage.py
 
@@ -145,6 +235,7 @@ ENV/
 env.bak/
 venv.bak/
 
+
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -152,11 +243,32 @@ venv.bak/
 # Rope project settings
 .ropeproject
 
+
 # mkdocs documentation
 /site
 
 # mypy
 .mypy_cache/
+
+# Sublime Text #
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# sftp configuration file
+sftp-config.json
+
+# Package control specific files Package
+Control.last-run
+Control.ca-list
+Control.ca-bundle
+Control.system-ca-bundle
+GitHub.sublime-settings
+
+# Visual Studio Code #
+
 .dmypy.json
 dmypy.json
 
@@ -182,6 +294,9 @@ cython_debug/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+.history
+
 !.vscode/*.code-snippets
 
 # Local History for Visual Studio Code
@@ -196,4 +311,3 @@ cython_debug/
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,django
->>>>>>> origin/master
